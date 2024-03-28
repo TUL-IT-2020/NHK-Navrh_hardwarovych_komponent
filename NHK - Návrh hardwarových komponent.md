@@ -9,3 +9,5 @@
 Tools -> Netlist Viewers -> TRL Viewer
 ## Počítáme v binární soustavě
 ![[Počítáme v binární soustavě]]
+## Jazyk VHDL
+![[VHDL]]

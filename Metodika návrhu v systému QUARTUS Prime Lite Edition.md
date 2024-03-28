@@ -37,7 +37,7 @@
 4. spuštění nahrávání (menu Tools / Programmer). Pokud není  řednastaven programovací kabel: tlačítko Hardware Setup …, Currently selected hardware: USB-Blaster `[USB-0]`. Dále vybrat soubor k programování (`\output_files\ *.sof`), zatrhnout Program/Configure, nakonec tlačítko Start.
 
 ## Simulace
-1. založení nového souboru pro simulaci (menu File / New / Verification/Debugging Files – University Program VWF);
+1. založení nového souboru pro simulaci (menu File -> New -> Verification/Debugging Files -> University Program VWF);
 2. vložení signálů
 	- menu Edit / Insert – Insert Node or Bus…
 	- tlačítko Node Finder… (Named: * , Filter: Pins: All ) - tlačítko List (ze seznamu vlevo vybereme signály, které chceme zobrazit v simulaci, a přeneseme do seznamu vpravo a potvrdíme i v nadřazeném dialogu);

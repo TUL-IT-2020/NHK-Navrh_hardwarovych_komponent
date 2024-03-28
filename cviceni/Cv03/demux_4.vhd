@@ -22,7 +22,7 @@ begin
     --address_high := ((address + 1) * 4 - 1);
     --address_low  := (address * 4);
     -- process the input
-    Y                                  <= (others => '0');
+    Y                                               <= (others => '0');
     Y(((address + 1) * 4 - 1) downto (address * 4)) <= X;
   end process demux;
 
