@@ -1,0 +1,228 @@
+|rom_read
+clk_in => clock_div:Inst_clock_div.clk_in
+rst_in => timer:Inst_timer.reset_in
+segm1_out[0] << dec_7segm:Inst_dec_7segm1.output7[0]
+segm1_out[1] << dec_7segm:Inst_dec_7segm1.output7[1]
+segm1_out[2] << dec_7segm:Inst_dec_7segm1.output7[2]
+segm1_out[3] << dec_7segm:Inst_dec_7segm1.output7[3]
+segm1_out[4] << dec_7segm:Inst_dec_7segm1.output7[4]
+segm1_out[5] << dec_7segm:Inst_dec_7segm1.output7[5]
+segm1_out[6] << dec_7segm:Inst_dec_7segm1.output7[6]
+segm2_out[0] << dec_7segm:Inst_dec_7segm2.output7[0]
+segm2_out[1] << dec_7segm:Inst_dec_7segm2.output7[1]
+segm2_out[2] << dec_7segm:Inst_dec_7segm2.output7[2]
+segm2_out[3] << dec_7segm:Inst_dec_7segm2.output7[3]
+segm2_out[4] << dec_7segm:Inst_dec_7segm2.output7[4]
+segm2_out[5] << dec_7segm:Inst_dec_7segm2.output7[5]
+segm2_out[6] << dec_7segm:Inst_dec_7segm2.output7[6]
+stav_reg_O2[0] << control_sm:Inst_control_sm.stav_reg_O2[0]
+stav_reg_O2[1] << control_sm:Inst_control_sm.stav_reg_O2[1]
+sw_in => input_bit_reg:Inst_input_bit_reg.inp
+
+
+|rom_read|clock_div:Inst_clock_div
+clk_in => s_clk.CLK
+clk_in => delic[0].CLK
+clk_in => delic[1].CLK
+clk_in => delic[2].CLK
+clk_in => delic[3].CLK
+clk_out <= s_clk.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|rom_read|input_bit_reg:Inst_input_bit_reg
+clk => outp~reg0.CLK
+clk => reg1.CLK
+inp => reg1.DATAIN
+outp <= outp~reg0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|rom_read|timer:Inst_timer
+clk_in => s_cnt8[0].CLK
+clk_in => s_cnt8[1].CLK
+clk_in => s_cnt8[2].CLK
+clk_in => s_cnt8[3].CLK
+clk_in => s_cnt8[4].CLK
+clk_in => s_cnt8[5].CLK
+clk_in => s_cnt8[6].CLK
+clk_in => s_cnt8[7].CLK
+clk_in => s_enable.CLK
+clk_in => cnt[0].CLK
+clk_in => cnt[1].CLK
+clk_in => cnt[2].CLK
+clk_in => cnt[3].CLK
+clk_in => cnt[4].CLK
+clk_in => cnt[5].CLK
+clk_in => cnt[6].CLK
+clk_in => cnt[7].CLK
+clk_in => cnt[8].CLK
+clk_in => cnt[9].CLK
+clk_in => cnt[10].CLK
+clk_in => cnt[11].CLK
+clk_in => cnt[12].CLK
+clk_in => cnt[13].CLK
+clk_in => cnt[14].CLK
+clk_in => cnt[15].CLK
+reset_in => s_enable.ACLR
+reset_in => cnt[0].ACLR
+reset_in => cnt[1].ACLR
+reset_in => cnt[2].ACLR
+reset_in => cnt[3].ACLR
+reset_in => cnt[4].ACLR
+reset_in => cnt[5].ACLR
+reset_in => cnt[6].ACLR
+reset_in => cnt[7].ACLR
+reset_in => cnt[8].ACLR
+reset_in => cnt[9].ACLR
+reset_in => cnt[10].ACLR
+reset_in => cnt[11].ACLR
+reset_in => cnt[12].ACLR
+reset_in => cnt[13].ACLR
+reset_in => cnt[14].ACLR
+reset_in => cnt[15].ACLR
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_en_in => s_cnt8.OUTPUTSELECT
+timer1_out <= Equal1.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|rom_read|rom16x8:Inst_rom16x8
+address[0] => outp[0].DATAIN
+address[1] => outp[1].DATAIN
+address[2] => outp[2].DATAIN
+address[3] => outp[3].DATAIN
+outp[0] <= address[0].DB_MAX_OUTPUT_PORT_TYPE
+outp[1] <= address[1].DB_MAX_OUTPUT_PORT_TYPE
+outp[2] <= address[2].DB_MAX_OUTPUT_PORT_TYPE
+outp[3] <= address[3].DB_MAX_OUTPUT_PORT_TYPE
+outp[4] <= <GND>
+outp[5] <= <GND>
+outp[6] <= <GND>
+outp[7] <= <GND>
+
+
+|rom_read|cnt4:Inst_cnt4
+clk_in => s_cnt4[0].CLK
+clk_in => s_cnt4[1].CLK
+clk_in => s_cnt4[2].CLK
+clk_in => s_cnt4[3].CLK
+en_in => s_cnt4.OUTPUTSELECT
+en_in => s_cnt4.OUTPUTSELECT
+en_in => s_cnt4.OUTPUTSELECT
+en_in => s_cnt4.OUTPUTSELECT
+srst_in => s_cnt4.OUTPUTSELECT
+srst_in => s_cnt4.OUTPUTSELECT
+srst_in => s_cnt4.OUTPUTSELECT
+srst_in => s_cnt4.OUTPUTSELECT
+cnt4_out[0] <= s_cnt4[0].DB_MAX_OUTPUT_PORT_TYPE
+cnt4_out[1] <= s_cnt4[1].DB_MAX_OUTPUT_PORT_TYPE
+cnt4_out[2] <= s_cnt4[2].DB_MAX_OUTPUT_PORT_TYPE
+cnt4_out[3] <= s_cnt4[3].DB_MAX_OUTPUT_PORT_TYPE
+
+
+|rom_read|cmpr4:Inst_cmpr4
+a_in4[0] => Equal0.IN3
+a_in4[1] => Equal0.IN2
+a_in4[2] => Equal0.IN1
+a_in4[3] => Equal0.IN0
+b_in4[0] => Equal0.IN7
+b_in4[1] => Equal0.IN6
+b_in4[2] => Equal0.IN5
+b_in4[3] => Equal0.IN4
+equal_out <= Equal0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|rom_read|dec_7segm:Inst_dec_7segm1
+input4[0] => Mux0.IN19
+input4[0] => Mux1.IN19
+input4[0] => Mux2.IN19
+input4[0] => Mux3.IN19
+input4[0] => Mux4.IN19
+input4[0] => Mux5.IN19
+input4[0] => Mux6.IN19
+input4[1] => Mux0.IN18
+input4[1] => Mux1.IN18
+input4[1] => Mux2.IN18
+input4[1] => Mux3.IN18
+input4[1] => Mux4.IN18
+input4[1] => Mux5.IN18
+input4[1] => Mux6.IN18
+input4[2] => Mux0.IN17
+input4[2] => Mux1.IN17
+input4[2] => Mux2.IN17
+input4[2] => Mux3.IN17
+input4[2] => Mux4.IN17
+input4[2] => Mux5.IN17
+input4[2] => Mux6.IN17
+input4[3] => Mux0.IN16
+input4[3] => Mux1.IN16
+input4[3] => Mux2.IN16
+input4[3] => Mux3.IN16
+input4[3] => Mux4.IN16
+input4[3] => Mux5.IN16
+input4[3] => Mux6.IN16
+output7[0] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+output7[1] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+output7[2] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+output7[3] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+output7[4] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+output7[5] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+output7[6] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|rom_read|dec_7segm:Inst_dec_7segm2
+input4[0] => Mux0.IN19
+input4[0] => Mux1.IN19
+input4[0] => Mux2.IN19
+input4[0] => Mux3.IN19
+input4[0] => Mux4.IN19
+input4[0] => Mux5.IN19
+input4[0] => Mux6.IN19
+input4[1] => Mux0.IN18
+input4[1] => Mux1.IN18
+input4[1] => Mux2.IN18
+input4[1] => Mux3.IN18
+input4[1] => Mux4.IN18
+input4[1] => Mux5.IN18
+input4[1] => Mux6.IN18
+input4[2] => Mux0.IN17
+input4[2] => Mux1.IN17
+input4[2] => Mux2.IN17
+input4[2] => Mux3.IN17
+input4[2] => Mux4.IN17
+input4[2] => Mux5.IN17
+input4[2] => Mux6.IN17
+input4[3] => Mux0.IN16
+input4[3] => Mux1.IN16
+input4[3] => Mux2.IN16
+input4[3] => Mux3.IN16
+input4[3] => Mux4.IN16
+input4[3] => Mux5.IN16
+input4[3] => Mux6.IN16
+output7[0] <= Mux6.DB_MAX_OUTPUT_PORT_TYPE
+output7[1] <= Mux5.DB_MAX_OUTPUT_PORT_TYPE
+output7[2] <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+output7[3] <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+output7[4] <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+output7[5] <= Mux1.DB_MAX_OUTPUT_PORT_TYPE
+output7[6] <= Mux0.DB_MAX_OUTPUT_PORT_TYPE
+
+
+|rom_read|control_sm:Inst_control_sm
+clk_in => stav_reg[0].CLK
+clk_in => stav_reg[1].CLK
+tlac_in => Mux1.IN3
+timer_exp_in => Mux0.IN3
+timer_exp_in => Mux1.IN1
+addr_cmpr_in => Mux1.IN2
+stav_reg_O2[0] <= stav_reg[0].DB_MAX_OUTPUT_PORT_TYPE
+stav_reg_O2[1] <= stav_reg[1].DB_MAX_OUTPUT_PORT_TYPE
+addr_cnt_ce_out <= Mux2.DB_MAX_OUTPUT_PORT_TYPE
+addr_rst_out <= Mux4.DB_MAX_OUTPUT_PORT_TYPE
+timer_en_out <= Mux3.DB_MAX_OUTPUT_PORT_TYPE
+
+

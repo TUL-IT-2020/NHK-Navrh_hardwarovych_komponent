@@ -16,9 +16,10 @@
 	opencore_plus);
 	- uložení souboru (menu File / Save) – „jméno.vhd“ nebo „jmeno.bdf“
 	(jméno volíme shodné se zadaným jménem TopLevel entity projektu);
-3. spuštění překladu (menu Processing / Start Compilation;
+3. spuštění překladu (menu Processing / Start Compilation).
 
-## Zadávání stavových automatů
+## Stavové automaty
+### Zadávání stavových automatů
 1. založení nového souboru (menu File / New / Design Files - State Machine File)
 2. spuštění průvodce stavovým automatem (pravé tlačítko myši, State Machine Wizard) a založení nového návrhu (Create a new state machine design):
 	- výběr resetovacího módu a typů výstupů (asynchronní; výstupy bez registrů);
@@ -29,6 +30,10 @@
 3. vygenerování souboru v jazyku HDL (pravé tlačítko myši, Generate HDL File…)
 	- doporučeno zvolit jazyk VHDL;
 4. spuštění překladu (menu Processing / Start Compilation).
+
+### Vyobrazení stavového automatu
+
+Menu -> toools -> netlist viewers -> state machine viewers.
 
 ## Nahrání do hradlového pole
 1. specifikace FPGA – již zadáno v projektu, příp. zkontrolovat - menu Assignments / Device (Family: MAX10 (DA), Device: **10M50DAF484C7G**);
