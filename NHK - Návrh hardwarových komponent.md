@@ -14,7 +14,6 @@ Tools -> Netlist Viewers -> TRL Viewer
 
 ### Ošetření vstupů
 
-Ochrana proti zákmitům.
-
-Signál proženeme klopným obvodem typu D s výrazně pomalejšími hodinami. 
-Následně stavový automat s hladinovým trigrem co generuje pulz délky jednoho času.
+> [!info] Ochrana proti zákmitům.
+>1. Signál proženeme klopným obvodem typu D s výrazně pomalejšími hodinami. 
+>2. Následně stavový automat s hladinovým trigrem co generuje pulz délky jednoho času.
