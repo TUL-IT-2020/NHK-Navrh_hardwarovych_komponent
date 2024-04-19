@@ -14,6 +14,7 @@
 	- [x] Paměť s konfigurací znaků
 - [ ] Zobrazeni na výstup
 	- [ ] Připojení 6x7-seg displejů
+        - Cyklus postupně přistupuje jednotlivé znaky a ukládá je do 7-seg 
 	- [ ] Pomalý časovač pro kroky posunu textu
 	- [ ] Čítač indexu posunu
 		- up/down
@@ -70,4 +71,28 @@ end function;
 
 ### Zobrazování
 Přepočet indexu ve stringu na posunutý index na displeji, modulo počet displejů.
+
+```vhdl
+-- io
+segments : out std_logic_vector((NUMBER_OF_DIGITS * NUMBER_OF_SEGMENTS) - 1 downto 0);
+
+-- signals
+signal index : integer range 0 to 5 := 0;
+signal posun : integer := 1;
+signal text : string(0 to 5) := "AHOJ  ";
+
+-- zobrazovaná číslice
+process(clk)
+	variable actual_index : integer range 0 to 5 := 0;
+	variable segment_start : integer := 0;
+	variable segment_end : integer := 0;
+begin
+	if rising_edge(clk) then
+		actual_index := (index + posun) mod 6;
+		segment_start := actual_index * 7;
+		segment_end := segment_start + 6;
+		segments(segment_end downto segment_start) <= char_to_seven_segment(text(actual_index));
+	end if;
+end process;
+```
 
