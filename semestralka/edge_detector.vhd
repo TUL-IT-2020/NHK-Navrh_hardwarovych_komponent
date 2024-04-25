@@ -38,6 +38,8 @@ begin
                         next_state <= WAIT_FOR_ONE;
                     when '1' =>
                         next_state <= ONE;
+                    when others =>
+                        next_state <= WAIT_FOR_ONE;
                 end case;
             when ONE =>
                 case signal_in is
@@ -45,6 +47,8 @@ begin
                         next_state <= WAIT_FOR_ONE;
                     when '1' =>
                         next_state <= WAIT_FOR_ZERO;
+                    when others =>
+                        next_state <= WAIT_FOR_ONE;
                 end case;
             when WAIT_FOR_ZERO =>
                 case signal_in is
@@ -52,6 +56,8 @@ begin
                         next_state <= WAIT_FOR_ONE;
                     when '1' =>
                         next_state <= WAIT_FOR_ZERO;
+                    when others =>
+                        next_state <= WAIT_FOR_ONE;
                 end case;
             when others =>
                 next_state <= WAIT_FOR_ONE;

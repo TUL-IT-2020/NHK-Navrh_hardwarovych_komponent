@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 
 entity UpDownCounter is
     generic (
-        WIDTH : integer := 8;  -- Šířka čítače
+        WIDTH : integer := 8  -- Šířka čítače
     );
     port (
         clk : in std_logic;

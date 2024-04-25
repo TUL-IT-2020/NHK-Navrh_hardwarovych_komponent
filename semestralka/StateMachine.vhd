@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity StateMachine is
     port (
         clk : in std_logic;
-        reset : in std_logic;
+        rst : in std_logic;
         button_pressed : in std_logic;
         en : out std_logic;
         up : out std_logic;
@@ -20,9 +20,9 @@ architecture Behavioral of StateMachine is
 
 begin
     -- Proces řízení stavového automatu
-    process (clk, reset, button_pressed)
+    process (clk, rst, button_pressed)
     begin
-        if reset = '1' then
+        if rst = '1' then
             current_state <= RESET;  -- Inicializace stavového automatu
         elsif rising_edge(clk) then
             -- Přechody mezi stavy
