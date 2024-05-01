@@ -13,7 +13,7 @@ entity barrel is
     input      : in std_logic_vector(WIDTH - 1 downto 0);
     shift      : in std_logic;
     output_3s  : out std_logic_vector(WIDTH - 1 downto 0);
-    out_enable : out std_logic
+    out_enable : in std_logic
   );
 end barrel;
 
