@@ -6,6 +6,9 @@ use work.SevenSegment_Package.all;
 entity zobrazovac_textu is
     generic (
         CLOCK_FREQUENCY : integer := 50000000;
+        DEBOUCE_FREQUENCY : integer := 100;
+        ROTATION_FREQUENCY : integer := 1;
+        BUTTON_SYNC_LENGTH : integer := 2;
         NUMBER_OF_DIGITS : integer := 6;
         NUMBER_OF_SEGMENTS : integer := 7;
         COUNTER_WIDTH : integer := 3
@@ -34,25 +37,39 @@ architecture Behavioral of zobrazovac_textu is
     signal counter_up : std_logic;
     signal counter_down : std_logic;
     signal counter_en : std_logic;
+    signal shift_counter_en : std_logic;
+    signal shift_enable_generator : std_logic;
     -- 7-segment display
 begin
 
     -- enable generator for shift counter
-    Freq_divider : entity work.FrequencyDivider
+    Freq_divider_synct : entity work.FrequencyDivider
     generic map (
         CLOCK_FREQUENCY => CLOCK_FREQUENCY,
-        OUTPUT_FREQUENCY => 100
+        OUTPUT_FREQUENCY => DEBOUCE_FREQUENCY
     )
     port map(
         clk => clk,
         reset => reset,
-        en => counter_en
+        clk_out => switch_synct_en
+    );
+
+    -- enable generator for shift counter
+    Freq_divider_synct : entity work.FrequencyDivider
+    generic map (
+        CLOCK_FREQUENCY => CLOCK_FREQUENCY,
+        OUTPUT_FREQUENCY => DEBOUCE_FREQUENCY
+    )
+    port map(
+        clk => clk,
+        reset => reset,
+        clk_out => shift_enable_generator
     );
 
     -- dvojity synchronizator
     Synchronizer : entity work.Generic_Shift_Register
     generic map (
-        NUMBER_OF_BITS => 2,
+        NUMBER_OF_BITS => BUTTON_SYNC_LENGTH,
         WITH_ENABLE => true
     )
     port map(
@@ -83,8 +100,9 @@ begin
         down => counter_down
     );
 
-    -- index counter
-    IndexCounter : entity work.UpDownCounter
+    shift_counter_en <= counter_en and shift_enable_generator;
+    -- index shift counter
+    IndexShiftCounter : entity work.UpDownCounter
     generic map (
         COUNTER_WIDTH => 3,
         ENABLE_INIT => false,
@@ -93,7 +111,7 @@ begin
     port map (
         clk => clk,
         reset => reset,
-        enable => counter_en,
+        enable => shift_counter_en,
         up => counter_up,
         count => index_shift,
         max_value => NUMBER_OF_DIGITS-1
