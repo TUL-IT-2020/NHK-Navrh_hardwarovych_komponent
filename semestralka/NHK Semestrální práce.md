@@ -15,7 +15,7 @@
 - [ ] Zobrazeni na výstup
 	- [ ] Připojení 6x7-seg displejů
         - Cyklus postupně přistupuje jednotlivé znaky a ukládá je do 7-seg 
-	- [ ] Pomalý časovač pro kroky posunu textu
+	- [x] Pomalý časovač pro kroky posunu textu
 	- [ ] Čítač indexu posunu
 		- up/down
 		- 0-5

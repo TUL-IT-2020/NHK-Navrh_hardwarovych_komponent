@@ -2,8 +2,15 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+--! Package pro práci s 7-segmentovým displejem <br>
+--! Obsahuje funkce pro převod znaku na ASCII hodnotu a naopak, 
+--! funkci pro převod ASCII hodnoty na 7-segmentový kód.
+
 package SevenSegment_Package is
     subtype byte is std_logic_vector(7 downto 0);
+
+    --! 3-state output buffer.
+    function tri_state_output (value : std_logic; out_enable : std_logic) return std_logic;
 
     function char_to_byte(c      : character) return byte;
     function byte_to_character(b : byte) return character;
@@ -12,6 +19,17 @@ package SevenSegment_Package is
 end package;
 
 package body SevenSegment_Package is
+    function tri_state_output (value : std_logic; out_enable : std_logic) return std_logic is
+        variable output : std_logic;
+    begin
+        if out_enable = '1' then
+            output := value;
+        else
+            output := 'Z';
+        end if;
+        return output;
+    end function;
+
     function char_to_byte(c : character) return byte is
     begin
         return byte(to_unsigned(character'pos(c), 8));

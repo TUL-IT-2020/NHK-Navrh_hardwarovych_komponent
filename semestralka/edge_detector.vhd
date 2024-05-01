@@ -4,12 +4,15 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+--! Edge detector <br>
+--! Generate one tick signal when input changes to "1".
+
 entity edge_detector is
     port (
         clk : in std_logic;
-        reset : in std_logic;
-        input : in std_logic;
-        output : out std_logic --! Generate one tick signal when input changes to "1"
+        reset : in std_logic;   --! Reset to initial state of "WAIT_FOR_ONE"
+        input : in std_logic;   --! Input signal
+        output : out std_logic  --! Generate one tick signal when input changes to "1"
     );
 end entity edge_detector;
 
@@ -19,7 +22,7 @@ architecture behave of edge_detector is
     signal next_state : state_type;
 begin
     -- Proces, ktery prejde do noveho stavu
-    process(clk)
+    update_state : process(clk)
     begin
         if reset = '1' then
             state <= WAIT_FOR_ONE;
@@ -29,7 +32,7 @@ begin
     end process;
 
     -- Proces, ktery urcuje dalsi stav
-    process(input, state)
+    state_machine : process(input, state)
     begin
         case state is
             when WAIT_FOR_ONE =>

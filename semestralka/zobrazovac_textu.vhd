@@ -7,7 +7,7 @@ entity zobrazovac_textu is
     generic (
         CLOCK_FREQUENCY : integer := 50000000;
         DEBOUCE_FREQUENCY : integer := 100;
-        ROTATION_FREQUENCY : integer := 1;
+        ROTATION_FREQUENCY : integer := 2;
         BUTTON_SYNC_LENGTH : integer := 2;
         NUMBER_OF_DIGITS : integer := 6;
         NUMBER_OF_SEGMENTS : integer := 7;

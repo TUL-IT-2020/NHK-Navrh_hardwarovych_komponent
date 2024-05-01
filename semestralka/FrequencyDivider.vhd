@@ -15,7 +15,7 @@ entity FrequencyDivider is
     (
         clk     : in std_logic;
         reset   : in std_logic;
-        clk_out : out std_logic
+        clk_out : out std_logic --! Output clock signal
     );
 end entity FrequencyDivider;
 
@@ -25,7 +25,7 @@ architecture Behavioral of FrequencyDivider is
     signal counter  : unsigned(integer(ceil(log2(real(PERIOD - 1)))) downto 0) := (others => '0'); --! Čítač pro vytvoření střídy
 begin
     -- Generování děleného hodinového signálu
-    process (clk)
+    counting : process (clk)
         variable prescaler : integer := 0; -- Počítadlo pro dělení vstupního signálu
     begin
         if rising_edge(clk) then

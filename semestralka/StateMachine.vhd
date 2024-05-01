@@ -3,13 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity StateMachine is
-    port (
-        clk : in std_logic;
-        rst : in std_logic;
+    port
+    (
+        clk            : in std_logic;
+        rst            : in std_logic;
         button_pressed : in std_logic;
-        en : out std_logic;
-        up : out std_logic;
-        down : out std_logic
+        en             : out std_logic; --! Enable counter
+        up             : out std_logic; --! Increment counter
+        down           : out std_logic  --! Decrement counter
     );
 end entity StateMachine;
 
@@ -20,10 +21,11 @@ architecture Behavioral of StateMachine is
 
 begin
     -- Proces řízení stavového automatu
+    update_state :
     process (clk, rst, button_pressed)
     begin
         if rst = '1' then
-            current_state <= RESET;  -- Inicializace stavového automatu
+            current_state <= RESET; -- Inicializace stavového automatu
         elsif rising_edge(clk) then
             -- Přechody mezi stavy
             current_state <= next_state;
@@ -31,6 +33,7 @@ begin
     end process;
 
     -- Logika pro přechody mezi stavy
+    state_logic :
     process (current_state, button_pressed)
     begin
         case current_state is
@@ -70,32 +73,33 @@ begin
     end process;
 
     -- Logika pro nastavení výstupů podle aktuálního stavu
+    output_logic :
     process (current_state)
     begin
         case current_state is
             when RESET =>
-                en <= '0';
-                up <= '0';
+                en   <= '0';
+                up   <= '0';
                 down <= '0';
             when LEFT =>
-                en <= '1';
-                up <= '0';
+                en   <= '1';
+                up   <= '0';
                 down <= '1';
             when STOP_LEFT =>
-                en <= '0';
-                up <= '0';
+                en   <= '0';
+                up   <= '0';
                 down <= '0';
             when RIGHT =>
-                en <= '1';
-                up <= '1';
+                en   <= '1';
+                up   <= '1';
                 down <= '0';
             when STOP_RIGHT =>
-                en <= '0';
-                up <= '0';
+                en   <= '0';
+                up   <= '0';
                 down <= '0';
             when others =>
-                en <= '0';
-                up <= '0';
+                en   <= '0';
+                up   <= '0';
                 down <= '0';
         end case;
     end process;
