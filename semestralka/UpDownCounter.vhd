@@ -5,7 +5,9 @@ use ieee.numeric_std.all;
 
 entity UpDownCounter is
     generic (
-        WIDTH : integer := 8  -- Šířka čítače
+        WIDTH : integer := 8;  --! Width of the counter
+        ENABLE_INIT : boolean := true;  --! After reset, the counter is set to init_value
+        ENABLE_MAX : boolean := true  --! After reaching the maximum value, the counter is reset to zero
     );
     port (
         clk : in std_logic;
@@ -13,17 +15,28 @@ entity UpDownCounter is
         enable : in std_logic;
         up : in std_logic;
         init_value : in unsigned(WIDTH - 1 downto 0);
+        max_value : in unsigned(WIDTH - 1 downto 0);
         count : out std_logic_vector(WIDTH - 1 downto 0)
     );
 end entity UpDownCounter;
 
 architecture Behavioral of UpDownCounter is
     signal counter_reg : unsigned(WIDTH - 1 downto 0);
+    signal internal_init_value : unsigned(WIDTH - 1 downto 0);
 begin
+    process (init_value)
+    begin
+        if ENABLE_INIT then
+            internal_init_value <= init_value;
+        else
+            internal_init_value <= (others => '0');
+        end if;
+    end process; 
+
     process (clk, reset)
     begin
         if reset = '1' then
-            counter_reg <= init_value;  -- Resetovat čítač na hodnotu init_value
+            counter_reg <= internal_init_value;
         elsif rising_edge(clk) then
             if enable = '1' then  -- Pokud je povolení aktivní
                 if up = '0' then
@@ -31,9 +44,14 @@ begin
                 elsif up = '1' then
                     counter_reg <= counter_reg + 1;  -- Inkrementace čítače, pokud je signál dolů neaktivní
                 end if;
+                if ENABLE_MAX then
+                    if counter_reg > max_value then  -- Pokud je dosaženo maximální hodnoty
+                        counter_reg <= internal_init_value;
+                    end if;
+                end if;
             end if;
         end if;
     end process;
 
-    count <= std_logic_vector(counter_reg);  -- Převést unsigned na std_logic_vector
+    count <= std_logic_vector(counter_reg);
 end architecture Behavioral;

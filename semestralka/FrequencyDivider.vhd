@@ -3,10 +3,12 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use ieee.math_real.all;
 
+--! Frekvencni delic <br>
+--! Podle zadane frekvence na vstupu a na vystupu vytvori frekvencni delic.
 entity FrequencyDivider is
     generic (
-        CLOCK_FREQUENCY : integer := 50000000;  -- Frekvence vstupního hodinového signálu (v Hz)
-        OUTPUT_FREQUENCY : integer := 1000      -- Požadovaná frekvence na výstupu (v Hz)
+        CLOCK_FREQUENCY : integer := 50000000;  --! Frekvence vstupního hodinového signálu (v Hz)
+        OUTPUT_FREQUENCY : integer := 1000      --! Požadovaná frekvence na výstupu (v Hz)
     );
     port (
         clk : in std_logic;
@@ -16,9 +18,9 @@ entity FrequencyDivider is
 end entity FrequencyDivider;
 
 architecture Behavioral of FrequencyDivider is
-    constant PERIOD : integer := CLOCK_FREQUENCY / OUTPUT_FREQUENCY;  -- Perioda vstupního signálu
-    signal clk_div : std_logic := '0';  -- Dělený hodinový signál
-    signal counter : unsigned(integer(ceil(log2(real(PERIOD - 1)))) downto 0) := (others => '0');  -- Čítač pro vytvoření střídy
+    constant PERIOD : integer := CLOCK_FREQUENCY / OUTPUT_FREQUENCY;  --! Perioda vstupního signálu
+    signal clk_div : std_logic := '0';  --! Dělený hodinový signál
+    signal counter : unsigned(integer(ceil(log2(real(PERIOD - 1)))) downto 0) := (others => '0');  --! Čítač pro vytvoření střídy
 begin
     -- Generování děleného hodinového signálu
     process (clk)

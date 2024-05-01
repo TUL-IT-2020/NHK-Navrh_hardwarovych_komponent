@@ -8,8 +8,8 @@ entity edge_detector is
     port (
         clk : in std_logic;
         reset : in std_logic;
-        signal_in : in std_logic;
-        signal_out : out std_logic
+        input : in std_logic;
+        output : out std_logic --! Generate one tick signal when input changes to "1"
     );
 end entity edge_detector;
 
@@ -29,11 +29,11 @@ begin
     end process;
 
     -- Proces, ktery urcuje dalsi stav
-    process(signal_in, state)
+    process(input, state)
     begin
         case state is
             when WAIT_FOR_ONE =>
-                case signal_in is
+                case input is
                     when '0' =>
                         next_state <= WAIT_FOR_ONE;
                     when '1' =>
@@ -42,7 +42,7 @@ begin
                         next_state <= WAIT_FOR_ONE;
                 end case;
             when ONE =>
-                case signal_in is
+                case input is
                     when '0' =>
                         next_state <= WAIT_FOR_ONE;
                     when '1' =>
@@ -51,7 +51,7 @@ begin
                         next_state <= WAIT_FOR_ONE;
                 end case;
             when WAIT_FOR_ZERO =>
-                case signal_in is
+                case input is
                     when '0' =>
                         next_state <= WAIT_FOR_ONE;
                     when '1' =>
@@ -65,5 +65,5 @@ begin
     end process;
 
     -- Vystupni signal
-    signal_out <= '1' when state = ONE else '0';
+    output <= '1' when state = ONE else '0';
 end architecture behave;

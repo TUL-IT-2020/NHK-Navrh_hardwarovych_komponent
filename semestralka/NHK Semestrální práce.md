@@ -4,9 +4,9 @@
 > Na šestimístném sedmisegmentovém displeji se pomalu posouvá nápis „AHOJ“. Ovládá se jedním tlačítkem. Jeho opakovaným stiskem se začne nápis posouvat jedním směrem, dalším stiskem se posun zastaví, při dalším stisku se začne nápis posouvat na druhou stranu a dalším stiskem tlačítka se opět zastaví.
 
 ## TODO:
-- [ ] Stavový automat
-	- [ ] Ošetření vstupů
-		- [ ] 2b posuvný registr
+- [x] Stavový automat
+	- [x] Ošetření vstupů
+		- [x] 2b posuvný registr
 	- Výstup ovládá směr posunu
 		- up/down/not_en
 - [ ] Uložení textu

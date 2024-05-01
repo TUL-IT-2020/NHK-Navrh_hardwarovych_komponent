@@ -5,8 +5,10 @@ use work.SevenSegment_Package.all;
 
 entity zobrazovac_textu is
     generic (
+        CLOCK_FREQUENCY : integer := 50000000;
         NUMBER_OF_DIGITS : integer := 6;
-        NUMBER_OF_SEGMENTS : integer := 7
+        NUMBER_OF_SEGMENTS : integer := 7;
+        COUNTER_WIDTH : integer := 3
     );
     port(
         -- inputs
@@ -20,19 +22,92 @@ entity zobrazovac_textu is
 end zobrazovac_textu;
 
 architecture Behavioral of zobrazovac_textu is
+    -- ROM
     signal ROM_address : integer range 0 to NUMBER_OF_DIGITS-1 := 0;
     signal ROM_data : byte;
+    -- switch
+    signal switch_synct_en : std_logic;
+    signal switch_synct : std_logic;
+    signal switch_rising_edge : std_logic;
+    -- index shift counter
+    signal index_shift : std_logic_vector(COUNTER_WIDTH-1 downto 0) := (others => '0');
+    signal counter_up : std_logic;
+    signal counter_down : std_logic;
+    signal counter_en : std_logic;
+    -- 7-segment display
 begin
+
+    -- enable generator for shift counter
+    Freq_divider : entity work.FrequencyDivider
+    generic map (
+        CLOCK_FREQUENCY => CLOCK_FREQUENCY,
+        OUTPUT_FREQUENCY => 100
+    )
+    port map(
+        clk => clk,
+        reset => reset,
+        en => counter_en
+    );
+
+    -- dvojity synchronizator
+    Synchronizer : entity work.Generic_Shift_Register
+    generic map (
+        NUMBER_OF_BITS => 2,
+        WITH_ENABLE => true
+    )
+    port map(
+        clk => clk,
+        reset => reset,
+        en => switch_synct_en,
+        data_in => switch,
+        data_out => switch_synct
+    );
+
+    -- edge detection
+    EdgeDetection : entity work.edge_detector
+    port map(
+        clk => clk,
+        reset => reset,
+        input => switch_synct,
+        output => switch_rising_edge
+    );
+
+    -- state machine
+    StateMachine : entity work.StateMachine
+    port map (
+        clk => clk,
+        rst => reset,
+        button_pressed => switch_rising_edge,
+        en => counter_en,
+        up => counter_up,
+        down => counter_down
+    );
+
+    -- index counter
+    IndexCounter : entity work.UpDownCounter
+    generic map (
+        COUNTER_WIDTH => 3,
+        ENABLE_INIT => false,
+        ENABLE_MAX => true
+    )
+    port map (
+        clk => clk,
+        reset => reset,
+        enable => counter_en,
+        up => counter_up,
+        count => index_shift,
+        max_value => NUMBER_OF_DIGITS-1
+    );
+
     -- inicializace pameti
     ROM : entity work.Memory_file 
-    generic (
-        INIT_STRING : string := "Ahoj  "
-    ); 
-    port map (
+    generic map (
+        INIT_STRING =>  "Ahoj  "
+    )
+    port map(
         address => ROM_address,
         data_out => ROM_data
     );
-    end entity;
 
     -- zobrazeni textu
     process(clk, reset)
