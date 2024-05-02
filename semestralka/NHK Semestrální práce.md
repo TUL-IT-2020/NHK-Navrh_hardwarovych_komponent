@@ -96,3 +96,45 @@ begin
 end process;
 ```
 
+## Návrh zapojení top level
+
+```mermaid
+flowchart TD
+    subgraph Input
+        Button
+        sync[dvojity synchronizator]
+        edge[edge detection]
+
+        Button --> sync
+        sync --> edge 
+    end
+    
+    edge --> state_machine
+    state_machine -- up/down --> counter_shift
+    state_machine -- enable --> counter_shift
+
+    subgraph logic
+        state_machine[state machine]
+        counter_shift[index shift counter]
+        counter_index
+        memory
+
+        counter_index --char_index--> memory
+    end
+    
+    subgraph output
+        7-seg[7-seg displej]
+        sum((+))
+        mod(["mod(x, NUMBER_OF_DIGITS)"])
+        
+        mod -- index --> 7-seg
+    end
+    
+    counter_index --> sum
+    counter_shift --> sum
+    sum --> mod
+
+    memory -- to_7-seg(byte) --> 7-seg
+
+    text{{"AHOJ  "}} -.-> memory
+```

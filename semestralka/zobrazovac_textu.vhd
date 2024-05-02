@@ -5,13 +5,13 @@ use work.SevenSegment_Package.all;
 
 entity zobrazovac_textu is
     generic (
-        CLOCK_FREQUENCY : integer := 50000000;
+        CLOCK_FREQUENCY : integer := 50000000; --! Input clock frequenci.
         DEBOUCE_FREQUENCY : integer := 100;
-        ROTATION_FREQUENCY : integer := 2;
+        ROTATION_FREQUENCY : integer := 2; --! Počet synchronizatorů připojených za tlačítkem.
         BUTTON_SYNC_LENGTH : integer := 2;
-        NUMBER_OF_DIGITS : integer := 6;
-        NUMBER_OF_SEGMENTS : integer := 7;
-        COUNTER_WIDTH : integer := 3
+        NUMBER_OF_DIGITS : integer := 6;    --! Počet cislic na desce.
+        NUMBER_OF_SEGMENTS : integer := 7;  --! Klasický 7-segmentový displej
+        COUNTER_WIDTH : integer := 3    --! 2**COUNTER_WIDTH >= NUMBER_OF_DIGITS
     );
     port(
         -- inputs
@@ -42,7 +42,7 @@ architecture Behavioral of zobrazovac_textu is
     -- 7-segment display
 begin
 
-    -- enable generator for shift counter
+    --! enable generator for shift counter
     Freq_divider_synct : entity work.FrequencyDivider
     generic map (
         CLOCK_FREQUENCY => CLOCK_FREQUENCY,
@@ -54,7 +54,7 @@ begin
         clk_out => switch_synct_en
     );
 
-    -- enable generator for shift counter
+    --! enable generator for shift counter
     Freq_divider_synct : entity work.FrequencyDivider
     generic map (
         CLOCK_FREQUENCY => CLOCK_FREQUENCY,
@@ -66,7 +66,7 @@ begin
         clk_out => shift_enable_generator
     );
 
-    -- dvojity synchronizator
+    --! dvojity synchronizator
     Synchronizer : entity work.Generic_Shift_Register
     generic map (
         NUMBER_OF_BITS => BUTTON_SYNC_LENGTH,
@@ -80,7 +80,7 @@ begin
         data_out => switch_synct
     );
 
-    -- edge detection
+    --! edge detection
     EdgeDetection : entity work.edge_detector
     port map(
         clk => clk,
@@ -89,7 +89,7 @@ begin
         output => switch_rising_edge
     );
 
-    -- state machine
+    --! state machine
     StateMachine : entity work.StateMachine
     port map (
         clk => clk,
@@ -101,7 +101,7 @@ begin
     );
 
     shift_counter_en <= counter_en and shift_enable_generator;
-    -- index shift counter
+    --! index shift counter
     IndexShiftCounter : entity work.UpDownCounter
     generic map (
         COUNTER_WIDTH => 3,
@@ -117,7 +117,7 @@ begin
         max_value => NUMBER_OF_DIGITS-1
     );
 
-    -- inicializace pameti
+    --! inicializace pameti
     ROM : entity work.Memory_file 
     generic map (
         INIT_STRING =>  "Ahoj  "
@@ -127,7 +127,8 @@ begin
         data_out => ROM_data
     );
 
-    -- zobrazeni textu
+    --! zobrazeni textu
+    seven_segment_driver:
     process(clk, reset)
     begin
         if reset = '1' then
