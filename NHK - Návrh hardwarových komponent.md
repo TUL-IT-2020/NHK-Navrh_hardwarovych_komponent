@@ -1,5 +1,12 @@
 # NHK - Návrh hardwarových komponent
 
+## Zkouška
+- písemná
+	- Hádej co to je VHDL?
+	- Co je metastabilita a jak jí odstranit?
+	- Co je to za aritmetickou operaci?
+- ústní 
+
 ## Quartus Software
 - [[Metodika návrhu v systému QUARTUS Prime Lite Edition]]
 - [[Stažení QUARTUS Prime Lite]]
