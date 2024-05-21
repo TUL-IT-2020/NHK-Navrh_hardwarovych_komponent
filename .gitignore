@@ -3,10 +3,10 @@
 
 ### User-specific files ###
 # what you dont want to push to the repository
-incremental_db/*
-output_files/*
-db/*
-simulation/*
+*/incremental_db/*
+*/output_files/*
+*/db/*
+*/simulation/*
 *.flock
 *.bak
 
