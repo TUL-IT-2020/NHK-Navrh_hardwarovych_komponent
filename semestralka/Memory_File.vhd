@@ -8,32 +8,27 @@ entity Memory_File is
         INIT_STRING : string := "Ahoj  " --! Initial memory content
     );
     port (
-        address  : in integer range 0 to length(INIT_STRING) - 1; --! Memory address
+        address  : in integer range 0 to INIT_STRING'length - 1; --! Memory address
         data_out : out byte --! Data output
     );
 end Memory_File;
 
 architecture Behavioral of Memory_File is
     --! Memory type
-    type memory_array is array(0 to length(INIT_STRING) - 1) of byte;
+    type memory_array is array(0 to INIT_STRING'length - 1) of byte;
 
     --! function to initialize memory content
-    function init_memory(DATA_WIDTH : in integer) return memory_array is
+    function init_memory(text : string) return memory_array is
         variable temp_mem               : memory_array;
     begin
         for i in MEMORY_ARRAY'range loop
-            temp_mem(i) := char_to_byte(INIT_STRING(i));
+            temp_mem(i) := char_to_byte(text(i+1));
         end loop;
         return temp_mem;
     end function;
+	 
     --! ROM memory
-    constant memory_content : memory_array := init_memory(DATA_WIDTH);
+    constant memory_content : memory_array := init_memory(INIT_STRING);
 begin
-    memory :
-    process (clk) is
-    begin
-        if rising_edge(clk) then
-            data_out <= memory_content(address);
-        end if;
-    end process;
+    data_out <= memory_content(address);
 end Behavioral;

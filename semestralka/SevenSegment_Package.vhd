@@ -12,6 +12,9 @@ package SevenSegment_Package is
     --! 3-state output buffer.
     function tri_state_output (value : std_logic; out_enable : std_logic) return std_logic;
 
+    --! Conversion Boolean to std_logic
+    function to_std_logic(bool : boolean) return std_logic;
+
     function char_to_byte(c      : character) return byte;
     function byte_to_character(b : byte) return character;
 
@@ -29,6 +32,15 @@ package body SevenSegment_Package is
         end if;
         return output;
     end function;
+
+    function to_std_logic(bool : boolean) return std_logic is
+        begin
+            if bool = false then
+                return '0';
+            else
+                return '1';
+            end if;
+        end function to_std_logic;
 
     function char_to_byte(c : character) return byte is
     begin

@@ -70,6 +70,24 @@ end function;
 - [source](https://electronics.stackexchange.com/questions/626149/does-vhdl-2008-have-built-in-function-to-convert-std-logic-vector-to-character-t)
 
 ### Zobrazování
+
+### Test zobrazení
+```vhdl
+--! zobrazeni textu
+seven_segment_driver:
+process(clk, reset)
+begin
+	if reset = '1' then
+		ROM_address <= 0;
+		segments <= (others => '0');
+	elsif rising_edge(clk) then
+		if switch = '1' then
+			segments(7 downto 0) <= (not convert_char_to_7seg(ROM_data)) & '0';
+		end if;
+	end if;
+end process;
+```
+### Řízení displeje
 Přepočet indexu ve stringu na posunutý index na displeji, modulo počet displejů.
 
 ```vhdl
@@ -91,7 +109,7 @@ begin
 		actual_index := (index + posun) mod 6;
 		segment_start := actual_index * 7;
 		segment_end := segment_start + 6;
-		segments(segment_end downto segment_start) <= char_to_seven_segment(text(actual_index));
+		segments(segment_end downto segment_start) <= convert_char_to_7seg(text(actual_index));
 	end if;
 end process;
 ```

@@ -39,7 +39,7 @@ Menu -> toools -> netlist viewers -> state machine viewers.
 1. specifikace FPGA – již zadáno v projektu, příp. zkontrolovat - menu Assignments / Device (Family: MAX10 (DA), Device: **10M50DAF484C7G**);
 2. přiřazení pinů (menu Assignments / Pin Planner) – aby se automaticky načetly IO signály, je nutné mít projekt již zkompilovaný, zápis do polí „Location“ (PIN_číslo, stačí vkládat jen číslo) a „I/O Standard“ (zvolíme 3.3-V LVTTL, u tlačítek `KEY0` a `KEY1` volíme 3.3V Schmitt Trigger);
 3. po změně typu FPGA nebo čísel pinů je třeba projekt znovu zkompilovat (menu Processing / Start Compilation);
-4. spuštění nahrávání (menu Tools / Programmer). Pokud není  řednastaven programovací kabel: tlačítko Hardware Setup …, Currently selected hardware: USB-Blaster `[USB-0]`. Dále vybrat soubor k programování (`\output_files\ *.sof`), zatrhnout Program/Configure, nakonec tlačítko Start.
+4. spuštění nahrávání (menu Tools / Programmer). Pokud není  přednastaven programovací kabel: tlačítko Hardware Setup …, Currently selected hardware: USB-Blaster `[USB-0]`. Dále vybrat soubor k programování (`\output_files\ *.sof`), zatrhnout Program/Configure, nakonec tlačítko Start.
 
 ## Simulace
 1. založení nového souboru pro simulaci (menu File -> New -> Verification/Debugging Files -> University Program VWF);

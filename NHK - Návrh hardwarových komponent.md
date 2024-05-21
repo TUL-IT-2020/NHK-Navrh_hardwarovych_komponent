@@ -1,6 +1,7 @@
 # NHK - Návrh hardwarových komponent
 
 ## Quartus Software
+- [[Metodika instalace Quartus Prime Lite Edition]]
 - [[Metodika návrhu v systému QUARTUS Prime Lite Edition]]
 - [[Stažení QUARTUS Prime Lite]]
 
