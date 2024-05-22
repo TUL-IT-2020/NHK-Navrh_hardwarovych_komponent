@@ -1,5 +1,8 @@
 # Metodika návrhu v systému QUARTUS Prime Lite Edition
 
+> [!tip]
+> Pokud budete mít v cestě k vašemu projektu diakritiku nebo mezery připravte se na hodiny debuggování bez úspěšného konce.
+
 ## Vytvoření nového projektu
 1. založení nového projektu (menu File / New Project Wizard…)
 	- nastavíme pracovní adresář (např. D:\projekt)
