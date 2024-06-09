@@ -57,3 +57,7 @@ Menu -> toools -> netlist viewers -> state machine viewers.
 3. spuštění simulace (menu Simulation / Run Functional Simulation);
 4. spuštění simulace (menu Processing / Start Simulation);
 5. výstupní průběhy se vytvoří v samostatném souboru *.sim.vwf.
+
+## RTL
+> [!question] Jak zobrazíme schéma obvodu?
+Tools -> Netlist Viewers -> TRL Viewer
