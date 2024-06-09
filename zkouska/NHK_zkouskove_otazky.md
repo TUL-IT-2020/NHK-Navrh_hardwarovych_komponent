@@ -14,6 +14,52 @@
 10. respin architektura, popsat k čemu je
 11. jak se porovnává velikost bloku v FPGA
 
+uvedte typy obvodu asic obvodu
+rozdil mezi promennou a signlem
+package
+triprocesorovy zapis
+meta stability 
+zakladni funkcni bloky IO
+metoda RAZ 
+
+programovatelne zakazkove obvody
+deklarace konmponenty
+mod prob buffer
+funkce vs procedura ve VHDL
+citlive promenne 
+pll bloky v FPGA 
+zapojeni invertoru a jeho zavislost
+boundry scan
+lut
+
+kombinacni vs sekvencni 
+
+Naznačte smysl/princip metody nazývané „synchronizace registrů” (Register retiming) při návrhu obvodů. Jaké přináší výhody?
+
+Co znamená návrh metodou „shora-dolů” a kdy je výhodné jej použít?
+
+Další otázky:
+K čemu slouží metoda Boundry Scan? Naznačte její princip. výhody a nevýhody.
+
+K čemu slouží metoda RAZ a jaký je její princip?
+
+
+Co víte o diagnostických prostředcích typu BIST (Built-ln Self Test)? Uveďte jejich základní bloky.
+
+## Test 6.5. 2019
+1) Pro uchovávání konfiguračních dat v FPGA obvodech se nejčastější používaná technologie založená na pamětech SRAM. Jaké má tato technologie výhody oproti ostatním používaným technologiím (anti-fuse nebo EEPROM)?
+2) Na jakém principu se realizuje kombinační a sekvenční logika v obvodech CPLD (Complex Programmable Logic Device)?
+3) Jakým způsobem se principiálně popisují stavové automaty v jazyce VHDL? Jaký je rozdíl mezi popisem stavového automatu typu Mealy a Moore?
+4) Nakreslete základní zapojení invertoru v technologii **CMOS** a jeho závislost $U_2 = f(U_l)$. Za jakých podmínek nastává změna $U_2$ právě při $U_l$ rovnající se zhruba polovině napájecího napětí?
+5) Ve třívoltové technologii **CMOS** je možné zatížit I/O buňku maximálním výstupním proudem $2 mA$. Na výstupním pinu je připojena zátěž o parazitní kapacitě $40 pF$. Jaká maximální frekvence signálu může být zhruba přenášena na tomto pinu?
+7) K čemu slouží seznam citlivých signálů (sensitivity list) u příkazu „process" a co uvádíme v tomto seznamu jednak u kombinačních obvodů a jednak u sekvenčních obvodů?
+8) Naznačte příčiny vzniku metastability v elektronických obvodech. V čem spočívá nebezpečnost metastabilit?
+9) Vstupně-výstupní buňky FPGA obvodů sdružují do bank. Co označujeme pojmem banka a jaký je její účel?
+10) Naznačte princip metody Random Access Scan při testování integrovaných obvodů. Uveďte její výhody a nevýhody ve srovnání s jinými metodami typu Scan.
+11) Na obrázku je principiální schéma jedné základní aritmetické operace (vstupem je N-bitové číslo a). O jakou operaci se jedná? Popište princip činnosti.
+
+![[schema.PNG]]
+
 ## VHDL
 
 ### Syntax
@@ -33,7 +79,7 @@ Jaký je rozdíl mezi funkcí a procedurou ve VHDL? Kdy je vhodné použít funk
 
 Jaký je rozdíl mezi kombinační a sekvenční logikou? Uveďte příklady obou typů logiky.
 
-Ve kterých částech popisu je možné v jazyce VHDL. deklarovat komponentu?
+Ve kterých částech popisu je možné v jazyce VHDL deklarovat komponentu?
 
 Kdy je vhodné použít mód portu BUFFER?
 
@@ -75,6 +121,7 @@ BEGIN
     END PROCESS;
 END ar_cnt;
 ```
+
 Jsou uvedené dva příklady ekvivalentní a proč?
 ```VHDL
 SIGNAL a, b, c : bit;
@@ -128,9 +175,10 @@ Jaký obvod popisuje uvedený proces (nakreslete schéma nebo značku)?
 ```VHDL
 PROCESS (x)
 BEGIN
-IF (x'event AND x = '1') THEN
-    IF y = '1' THEN
-        z <= w;
+	IF (x'event AND x = '1') THEN
+	    IF y = '1' THEN
+	        z <= w;
+	    END IF;
     END IF;
 END PROCESS;
 ```
@@ -202,20 +250,19 @@ Jakým způsobem se měří výkon FPGA obvodů při zpracování číslicového
 Z jakého důvodu se nedoporučuje používání asynchronních klopných obvodů typu RS
 v obvodech FPGA?
 ### Programování FPGA
+Uveďte základní druhy programovatelných zákaznických obvodů a stručné popište (příp. nakreslete) vnitřní architektury jednotlivých druhů.
+
 Na jakých technologiích (principech) je založeno ukládání funkce (programování) v programovatelných zakázkových obvodech? Uveďte výhody a nevýhody jednotlivých typů.
 
-Uveďte základni druhy programovatelných zákaznických obvodů a stručné popište (příp. nakreslete) vnitřní architektury jednotlivých druhů.
-
-Na jakých principech je založeno programováni programovatelných zakáznických obvodů? Uveďte výhody a nevýhody jednotlivých typů.
+Na jakých principech je založeno programováni programovatelných zákaznických obvodů? Uveďte výhody a nevýhody jednotlivých typů.
 
 K čemu slouží antipojistky (antifuse) v programovatelných obvodech? Jaké mají výhody a nevýhody oproti pamětím typu SRAM a EEPROM?
 ### Metastability
-Jak eliminujeme metastability v obvodech FPGA při přenosu signálu (po zběrnici) mezi dvěma časovými doménami?
-
+Co je časová doména a jak řešíme přenos signálů mezi časovými doménami?
 Co jsou metastability a jak se eliminují?
+Jak eliminujeme metastability v obvodech FPGA při přenosu signálu (po zběrnici) mezi dvěma časovými doménami?
 Vysvětlete, jakým způsobem/principem dvojitý synchronizátor eliminuje metastability.
 
-Co je časová doména a jak řešíme přenos signálů mezi časovými doménami?
 ### Napěťové standardy a I/O
 Napěťové standardy I/0 buněk FPGA obvodů se dělí na dvě skupiny (single-ended a differential). Uveďte jejich výhody a nevýhody; u každé skupiny jmenujte alespoň jednoho představitele.
 
@@ -225,60 +272,3 @@ Proč se I/O buňky FPGA obvodů sdružují do bank? Jaký je účel banky?
 ## Číslicová technika
 
 Jaké jsou možnosti při realizaci HW sčítačky? Vyjmenujte možné varianty.
-## Testy
-
-uvedte typy obvodu asic obvodu
-rozdil mezi promennou a signlem
-package
-triprocesorovy zapis
-meta stability 
-zakladni funkcni bloky IO
-metoda RAZ 
-
-programovatelne zakazkove obvody
-deklarace konmponenty
-mod prob buffer
-funkce vs procedura ve VHDL
-citlive promenne 
-pll bloky v FPGA 
-zapojeni invertoru a jeho zavislost
-boundry scan
-lut
-
-kombinacni vs sekvencni 
-
-
-6.5.2019
-1) Pro uchovávání konfiguračních dat v FPGA obvodech se nejčastější používaná technologie založená na pamětech SRAM. Jaké má tato technologie výhody oproti ostatním používaným technologiím (anti-fuse nebo EEPROM)?
-2) Na jakém principu se realizuje kombinační a sekvenční logika v obvodech CPLD (Complex Programmable Logic Device)?
-3) Jakým způsobem se principiálně popisují stavové automaty v jazyce VHDL? Jaký je rozdíl mezi popisem stavového automatu typu Mealy a Moore?
-4) Nakreslete základní zapojení invertoru v technologii **CMOS** a jeho závislost $U_2 = f(U_l)$. Za jakých podmínek nastává změna $U_2$ právě při $U_l$ rovnající se zhruba polovině napájecího napětí?
-5) Ve třívoltové technologii **CMOS** je možné zatížit I/O buňku maximálním výstupním proudem $2 mA$. Na výstupním pinu je připojena zátěž o parazitní kapacitě $40 pF$. Jaká maximální frekvence signálu může být zhruba přenášena na tomto pinu?
-7) K čemu slouží seznam citlivých signálů (sensitivity list) u příkazu „process" a co uvádíme v tomto seznamu jednak u kombinačních obvodů a jednak u sekvenčních obvodů?
-8) Naznačte příčiny vzniku metastability v elektronických obvodech. V čem spočívá nebezpečnost metastabilit?
-9) Vstupně-výstupní buňky FPGA obvodů sdružují do bank. Co označujeme pojmem banka a jaký je její účel?
-10) Naznačte princip metody Random Access Scan při testování integrovaných obvodů. Uveďte její výhody a nevýhody ve srovnání s jinými metodami typu Scan.
-11) Na obrázku je principiální schéma jedné základní aritmetické operace (vstupem je N-bitové číslo a). O jakou operaci se jedná? Popište princip činnosti.
-
-![[schema.PNG]]
-
-Další otázky:
-
-2019
-Co jsou to adaptivní logické moduly? Kde se používají? Jaké mají výhody?
-
-Naznačte smysl/princip metody nazývané „synchronizace registrů” (Register retiming) při návrhu obvodů. Jaké přináší výhody?
-
-2009
-
-K čemu slouží metoda Boundry Scan? Naznačte její princip. výhody a nevýhody.
-
-K čemu slouží metoda RAZ a jaký je její princip?
-
-Co znamená návrh metodou „shora-dolů” a kdy je výhodné jej použít?
-
-Co víte o diagnostických prostředcích typu BIST (Built-ln Self Test)? Uveďte jejich základní bloky.
-
-
-
-
